@@ -32,11 +32,8 @@ namespace muse_osc_server
         // Send a series of key presses to the Calculator application.
         private void button1_Click(object sender, EventArgs e)
         {
-            
-
             // Make Calculator the foreground application and send it 
             // a set of calculations.
-            
         }
 
         public static void Main(string[] args)
@@ -60,68 +57,33 @@ namespace muse_osc_server
             {
                 var messageReceived = (OscMessage)packet;
                 var addr = messageReceived.Address;
-                // if(addr == "/muse/elements/jaw_clench (0)") {
-                // 	Console.Write("Jaw clench values: ");
-                // 	foreach(var arg in messageReceived.Arguments) {
-                // 		Console.Write(arg + " ");
-                // 	}
-                // }
                 if (addr == "/muse/elements/blink")
                 {
-                    //Stopwatch stopwatch = new Stopwatch();
-                    //TimeSpan ts = new TimeSpan();
-                    
-                    //stopwatch.Start();
-
                     foreach (var arg in messageReceived.Arguments)
                     {
                         if (Convert.ToInt32(arg) == 1)
                         {
                             Console.WriteLine("counter: " + i);
-                            Console.WriteLine("1 blink");
-                            //stopwatch.Stop();
-                            //ts = stopwatch.Elapsed;
-                            //ts.ToString("mm\\:ss\\.ff");
-                            //Console.WriteLine("Elapsed:" + ts);
-                            //Console.WriteLine(stopwatch.ElapsedMilliseconds);
-
+                            Console.WriteLine("1 Blink Detected");
 
                             if (i <= 6 && i >= 2)
                             {
-                                Console.Write("+ DOUBLE BLINK");
+                                Console.Write("Double Blink Detected");
                                 SetForegroundWindow(calculatorHandle);
                                 SendKeys.SendWait("111");
                                 SendKeys.SendWait("*");
                                 SendKeys.SendWait("11");
                                 SendKeys.SendWait("=");
-                                //button1.Click += new EventHandler(button1_Click);
-                                //0xB3
-                                //SendMessage(0xffff, 0xB3, );
-                                //Rectangle bounds = this.Bounds;
-                                //using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
-                                //{
-                                //    using (Graphics g = Graphics.FromImage(bitmap))
-                                //    {
-                                //        g.CopyFromScreen(new Point(bounds.Left, bounds.Top), Point.Empty, bounds.Size);
-                                //    }
-                                //    bitmap.Save("C://test.jpg", ImageFormat.Jpeg);
-                                //}
-                                //Process.Start(@"c:\temp\test.txt");
-
-                                //File.Open(filePath, FileMode.Open, FileAccess.Read);
                             }
                             else
                             {
-                                Console.Write("+ FAIL!!!!!");
+                                Console.Write("Double Blink Not Deteced");
                             }
-                            //stopwatch.Reset();
                             i = 0;
                             Console.WriteLine("Stopwatch Reset");
-                            //stopwatch.Start();
                         }
                         else
                         {
-                            
                             i = i + 1;
                             Console.WriteLine("Not Blink: " + i);
                         }
